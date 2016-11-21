@@ -56,7 +56,7 @@ static const int64_t eof_timeout = 50; /* ms */
 static const int default_pending_pipe_instances = 4;
 
 /* Pipe prefix */
-static char pipe_prefix[] = "\\\\?\\pipe";
+static char pipe_prefix[] = "\\\\.\\pipe";
 static const int pipe_prefix_len = sizeof(pipe_prefix) - 1;
 
 /* IPC protocol flags. */
@@ -85,7 +85,7 @@ static void eof_timer_close_cb(uv_handle_t* handle);
 
 
 static void uv_unique_pipe_name(char* ptr, char* name, size_t size) {
-  snprintf(name, size, "\\\\?\\pipe\\uv\\%p-%u", ptr, GetCurrentProcessId());
+  snprintf(name, size, "\\\\.\\pipe\\uv\\%p-%u", ptr, GetCurrentProcessId());
 }
 
 
