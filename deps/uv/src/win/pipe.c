@@ -59,7 +59,7 @@ static const int64_t eof_timeout = 50; /* ms */
 static const int default_pending_pipe_instances = 4;
 
 /* Pipe prefix */
-static char pipe_prefix[] = "\\\\?\\pipe";
+static char pipe_prefix[] = "\\\\.\\pipe";
 static const int pipe_prefix_len = sizeof(pipe_prefix) - 1;
 
 /* IPC protocol flags. */
@@ -88,7 +88,7 @@ static void eof_timer_close_cb(uv_handle_t* handle);
 
 
 static void uv_unique_pipe_name(char* ptr, char* name, size_t size) {
-  snprintf(name, size, "\\\\?\\pipe\\uv\\%p-%lu", ptr, GetCurrentProcessId());
+  snprintf(name, size, "\\\\.\\pipe\\uv\\%p-%lu", ptr, GetCurrentProcessId());
 }
 
 
@@ -2172,7 +2172,7 @@ int uv_pipe_chmod(uv_pipe_t* handle, int mode) {
     error = GetLastError();
     goto clean_sid;
   }
- 
+
   memset(&ea, 0, sizeof(EXPLICIT_ACCESS));
   if (mode & UV_READABLE)
     ea.grfAccessPermissions |= GENERIC_READ | FILE_WRITE_ATTRIBUTES;
